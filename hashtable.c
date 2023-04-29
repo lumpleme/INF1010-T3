@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "hashtable.h"
 
-#define TAMINICIAL 1031 //primo após 1024 
+#define TAMINICIAL 1031 //primo apÃ³s 1024 
 
 //encadeamento interior
 
@@ -21,12 +21,11 @@ struct smapa {
 	ttabpos* tabpos;
 };
 
-unsigned int hash(char* s) {
-	unsigned int hashval;
-	for (hashval = 0; *s; s++) {
-		hashval = *s + 31 * hashval;
-	}
-	return hashval % TAMINICIAL;
+int hash(int key) {
+	key *= key;
+	key = key & 0x3FFF;
+	key = key >> 4;
+	return key % TAMINICIAL;
 }
 
 Mapa* cria(void) {
@@ -34,13 +33,13 @@ Mapa* cria(void) {
 	Mapa* m = (Mapa*)malloc(sizeof(Mapa));
 
 	if (m == NULL) { 
-		printf("erro na alocação! \n"); 
+		printf("erro na alocaÃ§Ã£o! \n"); 
 		exit(1); 
 	}
 
 	m->tabpos = (ttabpos*)malloc(TAMINICIAL * sizeof(ttabpos));
 	if (m->tabpos == NULL) {
-		printf("erro na alocação! \n");
+		printf("erro na alocaÃ§Ã£o! \n");
 		exit(1);
 	}
 
