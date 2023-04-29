@@ -23,6 +23,7 @@ struct smapa {
 
 int hash(int key) {
 	key *= key;
+	key *= 1031;
 	key = key & 0x3FFF;
 	key = key >> 4;
 	return key % TAMINICIAL;
